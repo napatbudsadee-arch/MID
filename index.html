@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECSTEAM — รับเหมาติดตั้งระบบเครื่องกลและระบบท่อไอน้ำ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- ========== HEADER : Smart Sticky ========== -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#top" class="logo">MEC<span>STEAM</span></a>
+
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="#top">หน้าหลัก</a>
+
+      <div class="nav__item">
+        <a class="nav__link" href="#work-machine" aria-haspopup="true">ผลงาน ▾</a>
+        <div class="nav__panel">
+          <a href="#work-machine">งานติดตั้งเครื่องจักร</a>
+          <a href="#work-piping">ระบบท่ออุตสาหกรรม</a>
+          <a href="#work-design">ออกแบบเครื่องจักร</a>
+          <a href="#work-heatpipe">Heatpipe</a>
+        </div>
+      </div>
+
+      <a class="nav__link" href="#contact">ติดต่อเรา</a>
+      <a class="btn btn--primary btn--sm" href="#contact" style="margin-left:8px">ขอใบเสนอราคา</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="เปิดเมนู" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <p class="eyebrow">Mechanical Installation &amp; Engineering</p>
+        <h1>รับเหมาติดตั้งระบบเครื่องกล<br>ครบวงจร ตั้งแต่ออกแบบถึงส่งมอบ</h1>
+        <p>ทีมวิศวกรที่ดูแลงานติดตั้งเครื่องจักร ระบบท่ออุตสาหกรรม และงานออกแบบเฉพาะทาง
+           ด้วยมาตรฐานงานที่ตรวจสอบได้ทุกขั้นตอน</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#work-machine">ดูผลงานของเรา</a>
+          <a class="btn btn--ghost" href="#contact">ปรึกษาทีมวิศวกร</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>15+</b><span>ปีประสบการณ์</span></div>
+          <div class="stat"><b>200+</b><span>โครงการที่ส่งมอบ</span></div>
+          <div class="stat"><b>4</b><span>สายงานหลัก</span></div>
+        </div>
+      </div>
+      <div class="hero__visual">[ ภาพหน้างานจริง 4:3 ]</div>
+    </div>
+  </section>
+
+  <!-- ========== LAYOUT : Sidebar Scrollspy + Content ========== -->
+  <div class="container layout">
+
+    <aside class="sidebar">
+      <ul class="spy" id="spy">
+        <li><a href="#overview">ภาพรวมบริษัท</a></li>
+        <li><a href="#work-machine">งานติดตั้งเครื่องจักร</a></li>
+        <li><a href="#work-piping">ระบบท่ออุตสาหกรรม</a></li>
+        <li><a href="#work-design">ออกแบบเครื่องจักร</a></li>
+        <li><a href="#work-heatpipe">Heatpipe</a></li>
+        <li><a href="#contact">ติดต่อเรา</a></li>
+      </ul>
+    </aside>
+
+    <div>
+      <section class="section" id="overview">
+        <div class="section__head">
+          <p class="eyebrow">01 — Overview</p>
+          <h2>เราทำอะไร</h2>
+          <p>รับงานติดตั้งและปรับปรุงระบบเครื่องกลในโรงงานอุตสาหกรรม
+             ตั้งแต่ขั้นสำรวจหน้างาน ออกแบบ จัดหาอุปกรณ์ ติดตั้ง ทดสอบระบบ จนถึงส่งมอบพร้อมเอกสาร</p>
+        </div>
+        <div class="cards">
+          <article class="card" tabindex="0">
+            <div class="card__media">[ Survey ]</div>
+            <div class="card__body">
+              <h3>สำรวจ &amp; ประเมิน</h3>
+              <p class="card__meta">ขั้นที่ 1</p>
+              <div class="card__reveal"><p>เก็บข้อมูลหน้างานจริง วัดพื้นที่ ตรวจระบบเดิม แล้วสรุปเป็นข้อจำกัดก่อนออกแบบ</p></div>
+            </div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ Design ]</div>
+            <div class="card__body">
+              <h3>ออกแบบ &amp; ถอดแบบ</h3>
+              <p class="card__meta">ขั้นที่ 2</p>
+              <div class="card__reveal"><p>เขียนแบบ P&amp;ID / Isometric พร้อม BOQ ที่ระบุสเปกอุปกรณ์ชัดเจน</p></div>
+            </div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ Install ]</div>
+            <div class="card__body">
+              <h3>ติดตั้ง &amp; ทดสอบ</h3>
+              <p class="card__meta">ขั้นที่ 3</p>
+              <div class="card__reveal"><p>ควบคุมงานโดยวิศวกร มีแผน Commissioning และรายงานผลทดสอบทุกจุด</p></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work-machine">
+        <div class="section__head">
+          <p class="eyebrow">02 — Machine Installation</p>
+          <h2>งานติดตั้งเครื่องจักร</h2>
+          <p>ย้าย ติดตั้ง และจัดวางเครื่องจักรในสายการผลิต พร้อมงานฐานราก ระบบไฟ และการปรับตั้งระดับ</p>
+        </div>
+        <div class="cards">
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ติดตั้งไลน์ผลิตอาหาร</h3><p class="card__meta">โรงงาน · สมุทรปราการ</p>
+              <div class="card__reveal"><p>ติดตั้งเครื่องจักร 12 ยูนิต พร้อม Alignment และทดสอบเดินไลน์ต่อเนื่อง 72 ชม.</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ย้ายฐานเครื่อง CNC</h3><p class="card__meta">โรงงาน · ชลบุรี</p>
+              <div class="card__reveal"><p>รื้อถอน ขนย้าย และติดตั้งใหม่ภายใน 5 วัน โดยไม่กระทบแผนผลิต</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>งานฐานรากเครื่องอัด</h3><p class="card__meta">โรงงาน · ระยอง</p>
+              <div class="card__reveal"><p>ออกแบบฐานรองรับแรงสั่นสะเทือน พร้อมทดสอบค่า Vibration หลังติดตั้ง</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work-piping">
+        <div class="section__head">
+          <p class="eyebrow">03 — Piping System</p>
+          <h2>ระบบท่ออุตสาหกรรม</h2>
+          <p>งานเดินท่อไอน้ำ ท่อลม ท่อน้ำเย็น และท่อสารเคมี พร้อมงานเชื่อมที่ตรวจสอบคุณภาพได้</p>
+        </div>
+        <div class="cards">
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ระบบท่อไอน้ำ</h3><p class="card__meta">Steam Line</p>
+              <div class="card__reveal"><p>เดินท่อพร้อมฉนวน ติดตั้ง Steam Trap และทดสอบแรงดันตามมาตรฐาน</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ระบบท่อลมอัด</h3><p class="card__meta">Compressed Air</p>
+              <div class="card__reveal"><p>วางผังลดการรั่วไหล พร้อมจุดระบายน้ำและวาล์วแยกโซนชัดเจน</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ท่อสารเคมี</h3><p class="card__meta">Chemical Line</p>
+              <div class="card__reveal"><p>เลือกวัสดุตามชนิดสารเคมี พร้อมระบบรองรับการรั่วไหลและป้ายเตือน</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work-design">
+        <div class="section__head">
+          <p class="eyebrow">04 — Machine Design</p>
+          <h2>ออกแบบเครื่องจักร</h2>
+          <p>ออกแบบและสร้างเครื่องจักรเฉพาะทางตามโจทย์การผลิต ตั้งแต่ Concept จนถึงเครื่องจริง</p>
+        </div>
+        <div class="cards">
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>เครื่องลำเลียงอัตโนมัติ</h3><p class="card__meta">Custom Conveyor</p>
+              <div class="card__reveal"><p>ออกแบบให้เข้ากับพื้นที่เดิม ลดการปรับผังโรงงาน และรองรับกำลังผลิตที่เพิ่มขึ้น</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ชุดจับยึดชิ้นงาน</h3><p class="card__meta">Jig &amp; Fixture</p>
+              <div class="card__reveal"><p>ลดเวลาตั้งเครื่องต่อรอบ และทำให้คุณภาพชิ้นงานคงที่มากขึ้น</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>เครื่องทดสอบเฉพาะทาง</h3><p class="card__meta">Test Rig</p>
+              <div class="card__reveal"><p>ออกแบบตามเงื่อนไขการทดสอบของลูกค้า พร้อมระบบบันทึกค่า</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work-heatpipe">
+        <div class="section__head">
+          <p class="eyebrow">05 — Heatpipe</p>
+          <h2>งาน Heatpipe</h2>
+          <p>ระบบระบายและนำความร้อนกลับมาใช้ใหม่ เพื่อลดภาระของระบบทำความเย็นและลดต้นทุนพลังงาน</p>
+        </div>
+        <div class="cards">
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>Heat Recovery ในระบบ HVAC</h3><p class="card__meta">Energy Saving</p>
+              <div class="card__reveal"><p>ติดตั้ง Heatpipe ที่ AHU เพื่อลดความชื้นและลดโหลดของคอยล์เย็น</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>ระบายความร้อนตู้ควบคุม</h3><p class="card__meta">Panel Cooling</p>
+              <div class="card__reveal"><p>ลดอุณหภูมิภายในตู้ไฟโดยไม่ต้องเปิดฝุ่นเข้าระบบ</p></div></div>
+          </article>
+          <article class="card" tabindex="0">
+            <div class="card__media">[ 16:10 ]</div>
+            <div class="card__body"><h3>นำความร้อนทิ้งกลับมาใช้</h3><p class="card__meta">Waste Heat</p>
+              <div class="card__reveal"><p>ดึงความร้อนจากปล่องระบายมาอุ่นอากาศเข้าเตา ลดการใช้เชื้อเพลิง</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section__head">
+          <p class="eyebrow">06 — Contact</p>
+          <h2>ติดต่อทีมงาน</h2>
+          <p>ส่งแบบหรือเล่าโจทย์หน้างานมาได้เลย ทีมวิศวกรจะประเมินและตอบกลับภายใน 1 วันทำการ</p>
+        </div>
+        <div class="contact__grid">
+          <div>
+            <ul class="info">
+              <li><b>ที่อยู่</b><span>เลขที่ 00/0 หมู่ 0 ถนน— ตำบล— อำเภอ— จังหวัด— 00000</span></li>
+              <li><b>โทรศัพท์</b><span><a href="tel:+6600000000">0X-XXX-XXXX</a></span></li>
+              <li><b>อีเมล</b><span><a href="mailto:info@example.com">info@example.com</a></span></li>
+              <li><b>LINE</b><span><a href="https://line.me/R/ti/p/@example" target="_blank" rel="noopener">@example</a></span></li>
+              <li><b>เวลาทำการ</b><span>จันทร์–ศุกร์ 08:00–17:00 น.</span></li>
+            </ul>
+            <div style="display:flex;gap:var(--s-2);margin-top:var(--s-3);flex-wrap:wrap">
+              <a class="btn btn--primary" href="tel:+6600000000">โทรหาทีมงานทันที</a>
+              <a class="btn btn--ghost" href="mailto:info@example.com">ส่งรายละเอียดงาน</a>
+            </div>
+          </div>
+          <div class="map">
+            <!-- แทน src ด้วย Embed URL จริงจาก Google Maps → Share → Embed a map -->
+            <iframe
+              title="แผนที่บริษัท"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Bangkok&output=embed"></iframe>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="container footer">
+    <span>© 2026 MECSTEAM Co., Ltd.</span>
+    <span>Mechanical Installation · Steam Piping · Machine Design · Heatpipe</span>
+  </footer>
+</main>
+
+<!-- ========== PERSISTENT CTA (Conditional) ========== -->
+<a class="btn btn--primary fab" id="fab" href="#contact">ขอใบเสนอราคา</a>
+
+<script src="JAVASCRIPT/script.js" defer></script>
+</body>
+</html>
