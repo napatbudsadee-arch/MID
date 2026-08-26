@@ -1,0 +1,19 @@
+# ระบบปฏิบัติการ
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# เครื่องมือ / IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# ไฟล์ชั่วคราว
+*.log
+*.tmp
+*~
+
+# ถ้าในอนาคตใช้ Node
+node_modules/
+dist/
+.env
