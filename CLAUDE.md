@@ -1,0 +1,63 @@
+# CLAUDE.md — MECSTEAM Website
+
+ไฟล์นี้คือบริบทที่ Claude Code จะอ่านอัตโนมัติทุกครั้งที่เปิดโปรเจกต์นี้
+
+## เกี่ยวกับโปรเจกต์
+
+เว็บไซต์บริษัท B2B **MECSTEAM** — รับเหมาติดตั้งระบบเครื่องกลและระบบท่อไอน้ำ
+เป็น Single Page เขียนด้วย HTML / CSS / JavaScript ล้วน **ไม่ใช้ Framework และไม่ใช้ build tool**
+
+เจ้าของโปรเจกต์ชื่อ **นัวร์ (Noir)** ทำเว็บนี้เป็นผลงานสำหรับ Portfolio สาย IT / Digital Media
+
+## โครงสร้างไฟล์
+
+```
+MID/
+├── index.html          โครงสร้างหน้าเว็บ (อยู่ชั้นนอกสุดเสมอ เพื่อให้ GitHub Pages ใช้ได้)
+├── CSS/style.css       Design Token + Layout + Responsive
+├── JAVASCRIPT/script.js  Smart Header · Scrollspy · Conditional CTA
+├── README.md
+└── .gitignore
+```
+
+## กฎที่ต้องรักษาไว้
+
+- **ตั้งชื่อไฟล์ใหม่เป็นตัวพิมพ์เล็กเสมอ** — GitHub Pages รันบน Linux ที่แยกตัวพิมพ์เล็ก-ใหญ่
+- **ห้ามใส่ค่าระยะเป็นตัวเลขสดในโค้ด** ให้ใช้ตัวแปรจากบล็อก `:root` ของ `style.css` เท่านั้น (ระบบ 8pt grid)
+- **Animation ให้ใช้ `transform` และ `opacity` เท่านั้น** ห้ามใช้ `font-size` / `width` / `top` เพราะทำให้เกิด reflow แล้วหน้าเว็บกระตุก
+- ขนาดตัวอักษรใช้ `clamp()` ไม่เขียน media query แยกทีละขนาด
+- ทุก Section ต้องมีทางออก ห้ามมีหน้าที่ผู้ใช้เข้าไปแล้วไปต่อไม่ได้ (No Dead-End)
+- ข้อมูลสำคัญห้ามซ่อนไว้ใต้ `:hover` อย่างเดียว ต้องมี fallback สำหรับจอสัมผัสเสมอ
+
+## ตัวแปรที่ปรับบ่อย (อยู่ใน `:root` ของ style.css)
+
+| ตัวแปร | ความหมาย |
+| --- | --- |
+| `--dur-fade` | ความเร็ว fade ของ Header และ Overlay |
+| `--delay-fade` | หน่วงก่อนเริ่ม fade |
+| `--c-accent` | สีหลักของแบรนด์ |
+| `--container` | ความกว้างสูงสุดของเนื้อหา |
+| `--edge` | ระยะขอบซ้ายบนจอกว้าง (≥1600px) |
+
+## พฤติกรรมหลักของ JavaScript
+
+| ฟีเจอร์ | ลอจิก |
+| --- | --- |
+| Smart Sticky Header | เลื่อนลงเกิน 2 เท่าของความสูง header → fade ออก · เลื่อนขึ้น → fade กลับ |
+| Scrollspy | ใช้ "เส้นตัดสิน" ที่ 28% จากขอบบนจอ เลือก section **สุดท้าย** ที่ผ่านเส้น (ห้ามกลับไปใช้ IntersectionObserver แบบเรียงตาม top เพราะทำให้ข้าม section) |
+| Overlay Sidebar | ซ่อนตอนอยู่ Hero · fade เข้าเมื่อเข้าโซนเนื้อหา · `display:none` เมื่อจอ ≤1024px |
+| Conditional CTA | ปุ่มลอยเปลี่ยนข้อความตาม section ที่กำลังอ่าน |
+
+## วิธีทดสอบ
+
+เปิด `index.html` ด้วย Live Server แล้วเช็คทุกครั้งที่แก้:
+
+1. ย่อจอเหลือ 375px — ต้องไม่มี horizontal scroll
+2. เลื่อนขึ้น-ลงผ่านทุก section — Scrollspy ต้องไม่ข้ามหัวข้อ
+3. เปิด Console — ต้องไม่มี error
+
+## ที่ยังไม่เสร็จ
+
+- ข้อมูลติดต่อใน `#contact` ยังเป็น placeholder
+- `src` ของ iframe แผนที่ ต้องเปลี่ยนเป็น Embed URL จริงจาก Google Maps
+- รูปภาพผลงานยังเป็นกล่อง placeholder
