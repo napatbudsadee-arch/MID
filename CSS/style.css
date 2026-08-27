@@ -174,26 +174,28 @@ p{margin:0}
   /* เกาะขอบจอจริง (viewport) ตายตัว — ไม่คำนวณจาก container เลย เพราะจอกว้างจะทำให้ลอยห่าง
      จากขอบจอจริงไปมาก (container กึ่งกลางแล้วมี margin เยอะ) ค่านี้คงที่ไม่ว่าซูมเข้า/ออกแค่ไหน
      เพราะ browser zoom ย่อ/ขยายทุกพิกเซลเป็นสัดส่วนเดียวกันอยู่แล้ว */
-  position:fixed;top:50%;left:var(--s-4);
+  position:fixed;top:50%;right:var(--s-4);
   width:var(--sidebar-w);
   transform:translateY(-50%);
   z-index:80;
 }
 /* .sidebar__panel : กลไกซ่อน/แสดงเพียงอย่างเดียวคือ transform ไม่มี opacity —
-   ระยะ -100%-ของตัวเอง เพื่อให้พ้นกรอบจริง ๆ ไม่ใช่แค่ขยับนิดเดียวแล้วดูเหมือนไม่หาย */
+   ระยะ 100%-ของตัวเอง เพื่อให้พ้นกรอบจริง ๆ ไม่ใช่แค่ขยับนิดเดียวแล้วดูเหมือนไม่หาย
+   (อยู่ฝั่งขวา จึงซ่อนโดยเลื่อนออกไปทางขวา = ค่าบวก) */
 .sidebar__panel{
-  transform:translateX(calc(-100% - var(--s-6)));pointer-events:none;
+  transform:translateX(calc(100% + var(--s-6)));pointer-events:none;
   transition:transform var(--dur-slide) var(--ease-slide) var(--delay-show);
   will-change:transform;
 }
-/* โผล่เมื่อผู้ใช้เข้าสู่โซนเนื้อหา (ภาพรวมบริษัทเป็นต้นไป) — สไลด์เข้าจากซ้ายไปขวา */
+/* โผล่เมื่อผู้ใช้เข้าสู่โซนเนื้อหา (ภาพรวมบริษัทเป็นต้นไป) — สไลด์เข้าจากขวาไปซ้าย */
 .sidebar[data-visible="true"] .sidebar__panel{transform:translateX(0);pointer-events:auto}
-.spy{list-style:none;margin:0;padding:0;border-left:2px solid var(--c-border)}
+.spy{list-style:none;margin:0;padding:0;border-right:2px solid var(--c-border)}
 .spy a{
-  display:block;padding:10px var(--s-2);margin-left:-2px;
-  border-left:2px solid transparent;
+  display:block;padding:10px var(--s-2);margin-right:-2px;
+  border-right:2px solid transparent;
+  text-align:right;
   font-size:var(--t-small);font-weight:500;color:var(--c-text-muted);
-  transform-origin:left center;
+  transform-origin:right center;
   /* ไม่ transition font-size / font-weight เพื่อไม่ให้เกิด reflow ตอน active */
   transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),
              transform var(--dur) var(--ease),opacity var(--dur) var(--ease);
@@ -201,7 +203,7 @@ p{margin:0}
 .spy a:hover{color:var(--c-text)}
 /* Active State : สว่างขึ้น + ใหญ่ขึ้นด้วย transform (ไม่กินพื้นที่เพิ่ม จึงไม่ทำให้แถวขยับ) */
 .spy a[aria-current="true"]{
-  color:var(--c-accent);border-left-color:var(--c-accent);
+  color:var(--c-accent);border-right-color:var(--c-accent);
   transform:scale(1.06);
   text-shadow:0 0 .5px currentColor;   /* หนาขึ้นโดยความกว้างตัวอักษรไม่เปลี่ยน */
 }
