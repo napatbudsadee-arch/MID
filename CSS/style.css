@@ -8,9 +8,15 @@
   --c-border:#E3E6E9;
   --c-text:#14181C;
   --c-text-muted:#5C6670;
-  --c-accent:#1F5FA8;        /* Primary / Steel Blue */
-  --c-accent-soft:#EAF1F9;
-  --c-accent-strong:#16447A;
+  --c-accent:#2BAF8E;        /* Primary / Teal */
+  --c-accent-soft:#E3F5F0;
+  --c-accent-strong:#1F8F73;
+
+  /* Dark section (Header / Hero) — ตัดกับเนื้อหาส่วนกลางสีอ่อน */
+  --c-bg-dark:#12161C;
+  --c-border-dark:rgba(255,255,255,.12);
+  --c-text-inverse:#F5F7F8;
+  --c-text-inverse-muted:#98A2AC;
 
   /* Spacing — 8pt grid */
   --s-1:8px;  --s-2:16px; --s-3:24px; --s-4:32px;
@@ -31,19 +37,18 @@
 
   /* Motion */
   --dur:240ms; --ease:cubic-bezier(.22,.61,.36,1);
-  /* ---- ปรับจังหวะ Fade ได้ที่นี่ที่เดียว ----
-     dur   = ใช้เวลากี่มิลลิวินาทีในการจางจนสุด (1000ms = 1 วินาที)
-     delay = รอกี่มิลลิวินาทีก่อน "เริ่ม" จาง (0 = เริ่มทันที)          */
-  --dur-fade:1000ms;
-  --delay-hide:0ms;                  /* หน่วงก่อน Header จางหาย */
-  --delay-show:0ms;                  /* หน่วงก่อน Header จางกลับมา */
-  --ease-fade:cubic-bezier(.4,0,.2,1);
+  /* ---- ปรับจังหวะ Slide ของ Header/Overlay ได้ที่นี่ที่เดียว ----
+     dur   = ใช้เวลากี่มิลลิวินาทีในการเลื่อนจนสุด
+     delay = รอกี่มิลลิวินาทีก่อน "เริ่ม" เลื่อน (0 = เริ่มทันที)          */
+  --dur-slide:2000ms;                 /* ตัวสไลด์เองใช้เวลา 2 วินาทีเต็ม ไม่ใช่หน่วงก่อนเริ่ม */
+  --delay-hide:0ms;                   /* เริ่มเลื่อนซ่อนทันที ไม่หน่วง */
+  --delay-show:0ms;                   /* เริ่มเลื่อนกลับมาโชว์ทันที ไม่หน่วง */
+  --ease-slide:cubic-bezier(.22,.61,.36,1);
 
   /* Layout */
   --header-h:72px;
   --sidebar-w:248px;
   --container:1440px;
-  --edge:64px;          /* ระยะขอบซ้ายบนจอกว้าง */
 }
 
 /* ============================================================
@@ -52,7 +57,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + var(--s-3))}
 body{
-  margin:0;background:var(--c-bg);color:var(--c-text);
+  margin:0;background:var(--c-bg);color:var(--c-text);min-width:320px;
   font-family:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,-apple-system,sans-serif;
   font-size:var(--t-body);line-height:1.7;-webkit-font-smoothing:antialiased;
 }
@@ -60,10 +65,9 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{line-height:1.3;margin:0;font-weight:600;letter-spacing:-.01em}
 p{margin:0}
+/* จัดกึ่งกลางเสมอทุก viewport รวมถึงจอกว้าง ≥1600px (เดิมเคยยึดขอบซ้ายที่ช่วงนี้ ยกเลิกแล้ว) */
 .container{max-width:var(--container);margin-inline:auto;padding-inline:var(--s-3)}
 @media (min-width:1600px){
-  /* จอ 1920 : ยึดขอบซ้ายแทนการจัดกึ่งกลาง ลดสายตาวิ่งกลับไปกลับมา */
-  .container{margin-inline:0 auto;padding-left:var(--edge);padding-right:var(--s-4)}
   :root{--sidebar-w:280px}
 }
 .eyebrow{font-size:var(--t-caption);letter-spacing:.12em;text-transform:uppercase;
@@ -91,86 +95,99 @@ p{margin:0}
    ============================================================ */
 .header{
   position:fixed;inset:0 0 auto 0;height:var(--header-h);z-index:100;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--c-border);
-  opacity:1;transform:translateY(0);pointer-events:auto;
-  transition:opacity var(--dur-fade) var(--ease-fade) var(--delay-show),
-             transform var(--dur-fade) var(--ease-fade) var(--delay-show),
+  background:rgba(18,22,28,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--c-border-dark);
+  transform:translateY(0);pointer-events:auto;
+  transition:transform var(--dur-slide) var(--ease-slide) var(--delay-show),
              box-shadow var(--dur) var(--ease);
+  will-change:transform;
 }
-/* Hide on scroll down — fade ออกช้าๆ ไม่ใช่ดีดหายทันที */
+/* Hide on scroll down — transform คือกลไกเดียวที่ใช้ซ่อน/แสดง ไม่มี opacity fallback */
 .header[data-hidden="true"]{
-  opacity:0;transform:translateY(-8px);pointer-events:none;
+  transform:translateY(-100%);pointer-events:none;
   transition-delay:var(--delay-hide);
 }
-.header[data-scrolled="true"]{box-shadow:0 1px 12px rgba(20,24,28,.06)}
-.header__inner{height:100%;display:flex;align-items:center;gap:var(--s-4);
-  max-width:var(--container);margin-inline:auto;padding-inline:var(--s-3)}
-@media (min-width:1600px){
-  .header__inner{margin-inline:0 auto;padding-left:var(--edge);padding-right:var(--s-4)}
-}
-.logo{font-size:var(--t-h3);font-weight:700;letter-spacing:-.02em}
+.header[data-scrolled="true"]{box-shadow:0 1px 12px rgba(0,0,0,.24)}
+/* max-width/margin/padding มาจาก .container ที่แปะคู่กันใน HTML — เลิก duplicate ค่าที่นี่
+   เพื่อไม่ให้ header กับเนื้อหาเพี้ยนจากกันถ้าแก้ .container แล้วลืมแก้ที่นี่ */
+.header__inner{height:100%;display:flex;align-items:center;gap:var(--s-4)}
+.logo{font-size:var(--t-h3);font-weight:700;letter-spacing:-.02em;color:var(--c-text-inverse)}
 .logo span{color:var(--c-accent)}
 .nav{margin-left:auto;display:flex;align-items:center;gap:var(--s-1)}
 .nav__link{
   position:relative;padding:var(--s-1) var(--s-2);border-radius:var(--r-sm);
-  font-size:var(--t-small);font-weight:500;color:var(--c-text-muted);
+  font-size:var(--t-small);font-weight:500;color:var(--c-text-inverse-muted);
   transition:color var(--dur) var(--ease),background var(--dur) var(--ease);
 }
-.nav__link:hover,.nav__link[aria-current="true"]{color:var(--c-text);background:var(--c-surface)}
+.nav__link:hover,.nav__link[aria-current="true"]{color:var(--c-text-inverse);background:rgba(255,255,255,.08)}
 
 /* Dropdown : ผลงาน */
 .nav__item{position:relative}
 .nav__panel{
   position:absolute;top:calc(100% + var(--s-1));left:0;min-width:260px;
-  background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--r-md);
-  box-shadow:0 12px 32px rgba(20,24,28,.10);padding:var(--s-1);
+  background:var(--c-bg-dark);border:1px solid var(--c-border-dark);border-radius:var(--r-md);
+  box-shadow:0 12px 32px rgba(0,0,0,.32);padding:var(--s-1);
   opacity:0;visibility:hidden;transform:translateY(-6px);
   transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease),visibility var(--dur);
 }
 .nav__item:hover .nav__panel,
 .nav__item:focus-within .nav__panel{opacity:1;visibility:visible;transform:translateY(0)}
 .nav__panel a{display:block;padding:var(--s-1) var(--s-2);border-radius:var(--r-sm);
-  font-size:var(--t-small);color:var(--c-text-muted)}
-.nav__panel a:hover{background:var(--c-accent-soft);color:var(--c-accent)}
+  font-size:var(--t-small);color:var(--c-text-inverse-muted)}
+.nav__panel a:hover{background:rgba(255,255,255,.08);color:var(--c-accent)}
 
 /* Mobile menu toggle */
-.burger{display:none;width:40px;height:40px;border:1px solid var(--c-border);
+.burger{display:none;width:40px;height:40px;border:1px solid var(--c-border-dark);
   background:none;border-radius:var(--r-sm);cursor:pointer;align-items:center;justify-content:center}
-.burger span{display:block;width:18px;height:2px;background:var(--c-text);position:relative}
-.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--c-text)}
+.burger span{display:block;width:18px;height:2px;background:var(--c-text-inverse);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--c-text-inverse)}
 .burger span::before{top:-6px}.burger span::after{top:6px}
 
 /* ============================================================
    5. HERO  — ตอบ 3 คำถามใน 10 วินาที
    ============================================================ */
 .hero{padding-top:calc(var(--header-h) + var(--s-12));padding-bottom:var(--s-12);
-  border-bottom:1px solid var(--c-border)}
+  background:var(--c-bg-dark);color:var(--c-text-inverse)}
 .hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--s-8);align-items:center}
-.hero h1{font-size:var(--t-display);margin-block:var(--s-2) var(--s-3)}
-.hero p{color:var(--c-text-muted);max-width:52ch;margin-bottom:var(--s-4)}
+.hero h1{font-size:var(--t-display);margin-block:var(--s-2) var(--s-3);color:var(--c-text-inverse);
+  text-wrap:balance}
+.hero p{color:var(--c-text-inverse-muted);max-width:46ch;margin-bottom:var(--s-4)}
 .hero__actions{display:flex;gap:var(--s-2);flex-wrap:wrap}
-.hero__visual{aspect-ratio:4/3;background:var(--c-surface);border:1px solid var(--c-border);
-  border-radius:var(--r-lg);display:grid;place-items:center;color:var(--c-text-muted);
+.hero .btn--ghost{color:var(--c-text-inverse);border-color:var(--c-border-dark)}
+.hero .btn--ghost:hover{background:rgba(255,255,255,.08)}
+.hero__visual{aspect-ratio:4/3;background:rgba(255,255,255,.04);border:1px solid var(--c-border-dark);
+  border-radius:var(--r-lg);display:grid;place-items:center;color:var(--c-text-inverse-muted);
   font-size:var(--t-small)}
 .stats{display:flex;gap:var(--s-6);margin-top:var(--s-6);padding-top:var(--s-4);
-  border-top:1px solid var(--c-border)}
-.stat b{display:block;font-size:var(--t-h2);font-weight:700;letter-spacing:-.02em}
-.stat span{font-size:var(--t-caption);color:var(--c-text-muted)}
+  border-top:1px solid var(--c-border-dark)}
+.stat b{display:block;font-size:var(--t-h2);font-weight:700;letter-spacing:-.02em;color:var(--c-text-inverse)}
+.stat span{font-size:var(--t-caption);color:var(--c-text-inverse-muted)}
 
 /* ============================================================
    6. LAYOUT / SIDEBAR + CONTENT  (Scrollspy)
    ============================================================ */
-.layout{display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:var(--s-8);
+/* เนื้อหาคอลัมน์เดียวเต็มความกว้าง container เท่า Hero — .sidebar เป็น position:fixed
+   ลอยอิสระแล้ว ไม่ได้อยู่ใน grid flow นี้ จึงไม่ต้องเผื่อคอลัมน์ให้มันอีกต่อไป */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-8);
   padding-block:var(--s-12)}
 .sidebar{
-  position:sticky;top:calc(var(--header-h) + var(--s-4));align-self:start;height:max-content;
-  opacity:0;transform:translateY(10px);pointer-events:none;
-  transition:opacity var(--dur-fade) var(--ease-fade) var(--delay-fade),
-             transform var(--dur-fade) var(--ease-fade) var(--delay-fade);
+  /* เกาะขอบจอจริง (viewport) ตายตัว — ไม่คำนวณจาก container เลย เพราะจอกว้างจะทำให้ลอยห่าง
+     จากขอบจอจริงไปมาก (container กึ่งกลางแล้วมี margin เยอะ) ค่านี้คงที่ไม่ว่าซูมเข้า/ออกแค่ไหน
+     เพราะ browser zoom ย่อ/ขยายทุกพิกเซลเป็นสัดส่วนเดียวกันอยู่แล้ว */
+  position:fixed;top:50%;left:var(--s-4);
+  width:var(--sidebar-w);
+  transform:translateY(-50%);
+  z-index:80;
 }
-/* โผล่เมื่อผู้ใช้เข้าสู่โซนเนื้อหา (ภาพรวมบริษัทเป็นต้นไป) */
-.sidebar[data-visible="true"]{opacity:1;transform:none;pointer-events:auto}
+/* .sidebar__panel : กลไกซ่อน/แสดงเพียงอย่างเดียวคือ transform ไม่มี opacity —
+   ระยะ -100%-ของตัวเอง เพื่อให้พ้นกรอบจริง ๆ ไม่ใช่แค่ขยับนิดเดียวแล้วดูเหมือนไม่หาย */
+.sidebar__panel{
+  transform:translateX(calc(-100% - var(--s-6)));pointer-events:none;
+  transition:transform var(--dur-slide) var(--ease-slide) var(--delay-show);
+  will-change:transform;
+}
+/* โผล่เมื่อผู้ใช้เข้าสู่โซนเนื้อหา (ภาพรวมบริษัทเป็นต้นไป) — สไลด์เข้าจากซ้ายไปขวา */
+.sidebar[data-visible="true"] .sidebar__panel{transform:translateX(0);pointer-events:auto}
 .spy{list-style:none;margin:0;padding:0;border-left:2px solid var(--c-border)}
 .spy a{
   display:block;padding:10px var(--s-2);margin-left:-2px;
@@ -241,7 +258,7 @@ p{margin:0}
    ============================================================ */
 .fab{
   position:fixed;right:var(--s-3);bottom:var(--s-3);z-index:90;
-  box-shadow:0 8px 24px rgba(31,95,168,.32);
+  box-shadow:0 8px 24px rgba(43,175,142,.32);
   opacity:0;transform:translateY(12px);pointer-events:none;
   transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease);
 }
@@ -259,7 +276,7 @@ p{margin:0}
    ============================================================ */
 @media (max-width:1024px){
   /* minmax(0,1fr) : กัน grid track ถูกดันกว้างตามเมนูที่ nowrap */
-  .layout{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
+  .layout{gap:var(--s-2)}
   .layout > *{min-width:0}
 
   /* จอแคบ / มือถือ : ตัด Overlay ออกทั้งหมด ให้เหลือแต่เนื้อหางาน */
@@ -272,13 +289,16 @@ p{margin:0}
   .nav{display:none}
   .nav[data-open="true"]{
     display:flex;flex-direction:column;align-items:stretch;gap:0;
-    position:absolute;top:var(--header-h);left:0;right:0;background:var(--c-bg);
-    border-bottom:1px solid var(--c-border);padding:var(--s-2);
+    position:absolute;top:var(--header-h);left:0;right:0;background:var(--c-bg-dark);
+    border-bottom:1px solid var(--c-border-dark);padding:var(--s-2);
   }
   .nav[data-open="true"] .nav__panel{position:static;opacity:1;visibility:visible;
     transform:none;box-shadow:none;border:0;padding-left:var(--s-2)}
   .burger{display:flex}
   .hero{padding-top:calc(var(--header-h) + var(--s-6));padding-bottom:var(--s-8)}
+  /* ปล่อยให้ตัดบรรทัดเอง ไม่บังคับ <br> เดิม กันข้อความล้นขอบจอแคบ */
+  .hero h1{max-width:none}
+  .hero h1 br{display:none}
   .stats{gap:var(--s-3);flex-wrap:wrap}
   .layout{padding-block:var(--s-6)}
   .section{padding-bottom:var(--s-8)}
@@ -286,13 +306,14 @@ p{margin:0}
   .fab .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
-  /* เครื่องที่ปิด Animation ไว้ : ตัดการ "เคลื่อนที่" ทิ้ง
-     แต่ยังคง fade ไว้ เพราะการเปลี่ยนความทึบไม่ทำให้เวียนหัว */
+  /* ทุก transition ทั่วเว็บตัดเหลือใกล้ 0 ไว้ก่อนเป็นค่าเริ่มต้น (safety net) —
+     ยกเว้น header / sidebar / nav dropdown ที่ยังให้ "สไลด์" เหมือนผู้ใช้ทั่วไป
+     แค่ย่นเวลาให้สั้นลง (120ms) เพราะระยะเลื่อนเล็ก ความเสี่ยงต่อการเวียนหัวต่ำ */
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
-  .header,.sidebar{
-    transition-duration:var(--dur-fade) !important;
-    transition-property:opacity !important;
-    transform:none !important;
+  .header,
+  .sidebar__panel,
+  .nav__panel{
+    transition-duration:120ms !important;
   }
   html{scroll-behavior:auto}
 }

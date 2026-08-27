@@ -85,7 +85,9 @@
     setActive(sections[idx].id);
   }
 
-  /* Overlay : โผล่เมื่อพ้นโซน Hero, จางหายเมื่อเลื่อนกลับขึ้นไป Hero */
+  /* Overlay : หน้าที่หลักคือบอกว่า "กำลังอ่านอยู่ตรงไหน" จึงต้องโชว์ค้างไว้ตลอดตอนอยู่ในเนื้อหา
+     ไม่ใช่หายวับไปทุกครั้งที่เลื่อนขึ้นนิดเดียว — ผูกกับขอบเขต Hero เท่านั้น:
+     พ้น Hero แล้ว = สไลด์ออกมาโชว์ (ไปทางขวา) · เลื่อนกลับเข้า Hero = สไลด์ซ่อนไปทางซ้าย */
   var sidebar = document.querySelector(".sidebar");
   var hero    = document.querySelector(".hero");
 
@@ -111,7 +113,7 @@
   };
   function updateFabLabel(id){
     fab.textContent = LABELS[id] || "ติดต่อเรา";
-    fab.setAttribute("href", id === "contact" ? "tel:+6600000000" : "#contact");
+    fab.setAttribute("href", id === "contact" ? "tel:+66852861919" : "#contact");
   }
   function updateFab(y){
     // โผล่เมื่อพ้น Hero, ซ่อนเมื่อถึงหน้าติดต่อ (มีปุ่มจริงอยู่แล้ว)
