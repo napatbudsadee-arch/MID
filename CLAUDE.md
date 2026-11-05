@@ -1,6 +1,12 @@
 # CLAUDE.md — MECSTEAM Website
 
-ไฟล์นี้คือบริบทที่ Claude Code จะอ่านอัตโนมัติทุกครั้งที่เปิดโปรเจกต์นี้
+ไฟล์นี้คือบริบทที่ Claude Code จะอ่านอัตโนมัติทุกครั้งที่เปิดโปรเจกต์นี้ (ต้องอยู่ที่ root ของ repo)
+
+ก่อนเริ่มงานทุกครั้ง อ่าน:
+1. `docs/PRINCIPLES.md` — กฎการทำงานของ AI ทุกตัว (บังคับ)
+2. `docs/FEATURE_MAP.md` — ฟีเจอร์, หลักฐานว่าทำงาน, **Business facts** (แหล่งข้อมูลบริษัทที่เดียว)
+
+**Done means** = Guardian checklist ผ่าน + push ขึ้น `main` + เปิด `https://mecsteam.com` แล้วเห็นของใหม่ (`Ctrl+Shift+R`) + Console ไม่มี error + อัปเดต README / FEATURE_MAP · **ปิดงานตอน push ไม่ได้** (เคยค้างโค้ดไม่ขึ้นเว็บมาแล้ว)
 
 ## เกี่ยวกับโปรเจกต์
 
@@ -17,6 +23,10 @@ MID/
 ├── CSS/style.css       Design Token + Layout + Responsive
 ├── JAVASCRIPT/script.js  Smart Header · Scrollspy · Conditional CTA
 ├── README.md
+├── CLAUDE.md
+├── docs/PRINCIPLES.md  กฎของทีม AI
+├── docs/FEATURE_MAP.md ฟีเจอร์ + Business facts
+├── CNAME               โดเมน mecsteam.com
 └── .gitignore
 ```
 
@@ -56,8 +66,12 @@ MID/
 2. เลื่อนขึ้น-ลงผ่านทุก section — Scrollspy ต้องไม่ข้ามหัวข้อ
 3. เปิด Console — ต้องไม่มี error
 
+4. จอ 1366 / 1920 / 2560px — element `fixed` ต้องไม่ทับการ์ด
+
 ## ที่ยังไม่เสร็จ
 
-- ข้อมูลติดต่อใน `#contact` ยังเป็น placeholder
-- `src` ของ iframe แผนที่ ต้องเปลี่ยนเป็น Embed URL จริงจาก Google Maps
-- รูปภาพผลงานยังเป็นกล่อง placeholder
+ดูรายการเต็ม + ลำดับความสำคัญใน `docs/FEATURE_MAP.md` → "งานค้าง" (มาจาก Audit 5 พ.ย. 2026)
+
+- ข้อมูลติดต่อใส่ของจริงแล้ว แต่อีเมลยังเป็น Gmail ส่วนตัว (Audit #2)
+- `--dur-slide` ยังเป็น 2000ms เกินช่วง 150–320ms (Audit #4)
+- รูปภาพผลงาน + Hero ยังเป็นกล่อง placeholder (รอข้อมูลจากเจ้าของบริษัท)
